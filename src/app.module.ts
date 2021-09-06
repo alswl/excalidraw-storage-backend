@@ -1,10 +1,15 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { RawParserMiddleware } from './raw-parser.middleware';
+import { ScenesController } from './scenes/scenes.controller';
+import { MemoryService } from './storages/memory.service';
 
 @Module({
   imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [ScenesController],
+  providers: [MemoryService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RawParserMiddleware).forRoutes('**');
+  }
+}
