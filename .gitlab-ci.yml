@@ -1,0 +1,4 @@
+include:
+  - project: 'to-be-continuous/node'
+    ref: '1.2.0'
+    file: '/templates/gitlab-ci-node.yml'
