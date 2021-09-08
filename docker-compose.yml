@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  excalidraw: 
+    image: kiliandeca/excalidraw
+    healthcheck:
+      disable: true
+    ports:
+      - "80:80"
+    environment:
+      BACKEND_V2_GET_URL: http://localhost:8080/api/v2/
+      BACKEND_V2_POST_URL: http://localhost:8080/api/v2/
+      SOCKET_SERVER_URL: http://localhost:5000/
+
+  excalidraw-storage-backend:
+    build: .
+    ports:
+      - "8080:8080"
+
+  excalidraw-room:
+    image: excalidraw/excalidraw-room
+    ports:
+      - "5000:80"
