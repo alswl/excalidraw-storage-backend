@@ -30,7 +30,7 @@ node-build:
   stage: build
   extends: .node-template
   script:
-    - npm build
+    - npm run build
   artifacts:
     paths:
       - dist
