@@ -1,0 +1,36 @@
+include:
+  - project: "to-be-continuous/docker"
+    ref: "2.0.0"
+    file: "/templates/gitlab-ci-docker.yml"
+
+variables:
+  PROD_REF: "/^main$/"
+  AUTODEPLOY_TO_PROD: "true" # Always publish
+
+  DOCKER_REGISTRY_RELEASE_USER: kiliandeca
+  # DOCKER_REGISTRY_RELEASE_PASSWORD: # Defined in CI/CD Settings
+  DOCKER_RELEASE_IMAGE: docker.io/kiliandeca/excalidraw-storage-backend:latest
+
+stages:
+  - build
+  - package-build
+  - package-test
+  - publish
+
+.node-template:
+  image: node:14-alpine
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+  cache:
+    key: npm-cache
+    paths:
+      - .npm-cache
+
+node-build:
+  stage: build
+  extends: .node-template
+  script:
+    - npm build
+  artifacts:
+    paths:
+      - dist
