@@ -8,17 +8,19 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { MemoryService } from 'src/storages/memory.service';
+import { StorageNamespace, StorageService } from 'src/storage/storage.service';
 import { hash, hexadecimalToDecimal } from 'src/utils';
 import { Readable } from 'stream';
 
 @Controller()
 export class ScenesController {
-  constructor(private storageService: MemoryService) {}
+  namespace = StorageNamespace.SCENES;
+
+  constructor(private storageService: StorageService) {}
   @Get(':id')
   @Header('content-type', 'application/octet-stream')
   async findOne(@Param() params, @Res() res: Response): Promise<void> {
-    const data = await this.storageService.load(params.id);
+    const data = await this.storageService.get(params.id, this.namespace);
 
     const stream = new Readable();
     stream.push(data);
@@ -28,11 +30,10 @@ export class ScenesController {
 
   @Post()
   async create(@Body() payload: Buffer) {
-
     const drawingHash = hash(payload);
     const id = hexadecimalToDecimal(drawingHash);
 
-    await this.storageService.save(id, payload);
+    await this.storageService.set(id, payload, this.namespace);
 
     return {
       id,

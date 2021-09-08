@@ -8,6 +8,7 @@ services:
     ports:
       - "80:80"
     environment:
+      BACKEND_V1_GET_URL: ' '
       BACKEND_V2_GET_URL: http://localhost:8080/api/v2/
       BACKEND_V2_POST_URL: http://localhost:8080/api/v2/
       SOCKET_SERVER_URL: http://localhost:5000/
@@ -16,8 +17,15 @@ services:
     build: .
     ports:
       - "8080:8080"
+    environment:
+      STORAGE_URI: redis://redis:6379
 
   excalidraw-room:
     image: excalidraw/excalidraw-room
     ports:
       - "5000:80"
+  
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
