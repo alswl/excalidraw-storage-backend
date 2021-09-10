@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import * as Keyv from 'keyv';
+import * as Keyv from '@keyvhq/core';
 
 @Injectable()
 export class StorageService {

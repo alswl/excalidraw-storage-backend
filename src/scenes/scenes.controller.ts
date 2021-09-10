@@ -11,7 +11,7 @@ import {
 import { Response } from 'express';
 import { StorageNamespace, StorageService } from 'src/storage/storage.service';
 import { Readable } from 'stream';
-import { nanoid } from 'nanoid';
+import { customAlphabet } from 'nanoid';
 
 @Controller()
 export class ScenesController {
@@ -31,9 +31,11 @@ export class ScenesController {
 
   @Post()
   async create(@Body() payload: Buffer) {
+    // Excalidraw front-end only support numeric id, we can't use nanoid default alphabet
+    const nanoid = customAlphabet('0123456789', 16);
     const id = nanoid();
 
-    // Nanoid has similar collision probability as uuid v4, so the following should *never* happen
+    // Check for collision
     if (await this.storageService.get(id, this.namespace)) {
       throw new InternalServerErrorException();
     }
