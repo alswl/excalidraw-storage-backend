@@ -3,14 +3,15 @@ import {
   Controller,
   Get,
   Header,
+  InternalServerErrorException,
   Param,
   Post,
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { StorageNamespace, StorageService } from 'src/storage/storage.service';
-import { hash, hexadecimalToDecimal } from 'src/utils';
 import { Readable } from 'stream';
+import { nanoid } from 'nanoid';
 
 @Controller()
 export class ScenesController {
@@ -30,8 +31,12 @@ export class ScenesController {
 
   @Post()
   async create(@Body() payload: Buffer) {
-    const drawingHash = hash(payload);
-    const id = hexadecimalToDecimal(drawingHash);
+    const id = nanoid();
+
+    // Nanoid has similar collision probability as uuid v4, so the following should *never* happen
+    if (await this.storageService.get(id, this.namespace)) {
+      throw new InternalServerErrorException();
+    }
 
     await this.storageService.set(id, payload, this.namespace);
 
