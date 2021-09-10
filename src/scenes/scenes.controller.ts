@@ -42,7 +42,6 @@ export class ScenesController {
 
     return {
       id,
-      data: `http://localhost:8080/api/v2/${id}`,
     };
   }
 }
