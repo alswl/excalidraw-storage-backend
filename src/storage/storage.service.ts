@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as Keyv from 'keyv';
 
 @Injectable()
 export class StorageService {
+  private readonly logger = new Logger(StorageService.name);
   storagesMap = new Map<string, Keyv>();
 
   constructor() {
     const uri = process.env[`STORAGE_URI`];
     if (!uri) {
-      console.error(
+      this.logger.warn(
         `STORAGE_URI is undefined, will use non persistant in memory storage`,
       );
     }
@@ -19,7 +20,7 @@ export class StorageService {
         namespace,
       });
       keyv.on('error', (err) =>
-        console.error(`Connection Error for namespace ${namespace}`, err),
+        this.logger.error(`Connection Error for namespace ${namespace}`, err),
       );
       this.storagesMap.set(namespace, keyv);
     });

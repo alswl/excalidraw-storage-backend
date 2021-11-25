@@ -13,5 +13,7 @@ It can be used with [kiliandeca/excalidraw-fork](https://gitlab.com/kiliandeca/e
 | `PORT`          | Server listening port                                        | 8080             |
 | `GLOBAL_PREFIX` | API global prefix for every routes                           | `/api/v2`        |
 | `STORAGE_URI`   | [Keyv](https://github.com/jaredwray/keyv) connection string  | `""` (in memory) |
+| `LOG_LEVEL`     | Log level (`debug`, `verbose`, `log`, `warn`, `error`)       | `warn`           |
+
 
 Availabe Keyv storage adapter: redis, mongo, postgres and mysql

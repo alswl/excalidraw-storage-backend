@@ -4,6 +4,7 @@ import {
   Get,
   Header,
   InternalServerErrorException,
+  Logger,
   Param,
   Post,
   Res,
@@ -15,6 +16,7 @@ import { customAlphabet } from 'nanoid';
 
 @Controller()
 export class ScenesController {
+  private readonly logger = new Logger(ScenesController.name);
   namespace = StorageNamespace.SCENES;
 
   constructor(private storageService: StorageService) {}
@@ -22,6 +24,7 @@ export class ScenesController {
   @Header('content-type', 'application/octet-stream')
   async findOne(@Param() params, @Res() res: Response): Promise<void> {
     const data = await this.storageService.get(params.id, this.namespace);
+    this.logger.debug(`Get scene ${params.id}`);
 
     const stream = new Readable();
     stream.push(data);
@@ -41,6 +44,7 @@ export class ScenesController {
     }
 
     await this.storageService.set(id, payload, this.namespace);
+    this.logger.debug(`Created scene ${id}`);
 
     return {
       id,
