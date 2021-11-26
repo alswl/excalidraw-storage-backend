@@ -8,11 +8,11 @@ services:
     ports:
       - "80:80"
     environment:
-      BACKEND_V1_GET_URL: ' '
-      BACKEND_V2_GET_URL: http://localhost:8080/api/v2/
-      BACKEND_V2_POST_URL: http://localhost:8080/api/v2/
+      BACKEND_V2_GET_URL: http://localhost:8080/api/v2/scenes/
+      BACKEND_V2_POST_URL: http://localhost:8080/api/v2/scenes/
       SOCKET_SERVER_URL: http://localhost:5000/
-
+      STORAGE_BACKEND: "http"
+      HTTP_STORAGE_BACKEND_URL: "http://localhost:8080/api/v2"
   excalidraw-storage-backend:
     build: .
     ports:

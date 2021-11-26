@@ -2,7 +2,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { raw } from 'express';
 import { hasBody } from 'type-is';
 
-// Excalidraw Front end doesn't send a Content Type Header 
+// Excalidraw Front end doesn't send a Content Type Header
 // so we tell raw parser to check if there is a body
 const rawParserMiddleware = raw({ type: hasBody });
 
