@@ -13,10 +13,10 @@ import { Response } from 'express';
 import { StorageNamespace, StorageService } from 'src/storage/storage.service';
 import { Readable } from 'stream';
 
-@Controller('rooms')
-export class RoomsController {
-  private readonly logger = new Logger(RoomsController.name);
-  namespace = StorageNamespace.ROOMS;
+@Controller('files')
+export class FilesController {
+  private readonly logger = new Logger(FilesController.name);
+  namespace = StorageNamespace.FILES;
 
   constructor(private storageService: StorageService) {}
 
@@ -24,7 +24,7 @@ export class RoomsController {
   @Header('content-type', 'application/octet-stream')
   async findOne(@Param() params, @Res() res: Response): Promise<void> {
     const data = await this.storageService.get(params.id, this.namespace);
-    this.logger.debug(`Get room ${params.id}`);
+    this.logger.debug(`Get image ${params.id}`);
 
     if (!data) {
       throw new NotFoundException();
@@ -40,7 +40,7 @@ export class RoomsController {
   async create(@Param() params, @Body() payload: Buffer) {
     const id = params.id;
     await this.storageService.set(id, payload, this.namespace);
-    this.logger.debug(`Created room ${id}`);
+    this.logger.debug(`Created image ${id}`);
 
     return {
       id,

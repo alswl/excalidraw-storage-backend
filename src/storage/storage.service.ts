@@ -39,4 +39,5 @@ export class StorageService {
 export enum StorageNamespace {
   SCENES = 'SCENES',
   ROOMS = 'ROOMS',
+  FILES = 'FILES',
 }
