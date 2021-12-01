@@ -6,6 +6,14 @@ It can be used with [kiliandeca/excalidraw-fork](https://gitlab.com/kiliandeca/e
 
 [DockerHub kiliandeca/excalidraw-storage-backend](https://hub.docker.com/r/kiliandeca/excalidraw-storage-backend)
 
+Feature:
+
+- Storing scenes: when you export as a link
+- Storing rooms: when you create a live collaboration
+- Storing images: when you export or do a live collaboration of a scene with images
+
+It use Keyv as a simple K/V store so you can use the database of your choice.
+
 ## Environement Variables
 
 | Name            | Description                                                  | Default value    |
