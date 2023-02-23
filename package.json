@@ -26,6 +26,7 @@
     "@keyv/postgres": "^1.0.17",
     "@keyv/redis": "^2.2.0",
     "@keyv/sqlite": "^2.0.3",
+    "sqlite3": "5.0.3",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
