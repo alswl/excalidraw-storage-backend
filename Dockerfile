@@ -1,6 +1,6 @@
 FROM node:16-alpine as builder
 
-RUN apk add --update python3 make g++
+RUN apk add --update python3 make g++ curl
 RUN npm install -g eslint
 RUN npm install -g @nestjs/cli
 
