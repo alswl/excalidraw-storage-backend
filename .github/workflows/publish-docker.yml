@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - release
-      - feat/docker-pub-actions
 
 jobs:
   publish-docker:
