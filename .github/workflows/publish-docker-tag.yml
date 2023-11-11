@@ -22,4 +22,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: alswl/excalidraw-storage-backend:${{ github.ref }}
+          tags: alswl/excalidraw-storage-backend:${{ github.ref_name }}
