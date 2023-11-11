@@ -1,4 +1,4 @@
-FROM node:16-alpine as builder
+FROM node:20-alpine as builder
 
 ARG CHINA_MIRROR=false
 
@@ -29,7 +29,7 @@ RUN npm ci --prod
 RUN npx nest build
 
 
-FROM node:16-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
