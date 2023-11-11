@@ -3,7 +3,7 @@ name: Publish Docker Fork
 on:
   push:
     branches:
-      - release
+      - release-now
 
 jobs:
   publish-docker:
